@@ -1,4 +1,4 @@
-\documentclass{beamer}
+\documentclass[10pt, handout]{beamer}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[french]{babel}
@@ -15,11 +15,11 @@
 \setbeamertemplate{footline}[frame number]
 
 % Title information
-\title{ Exploration de la Recherche avec Tabous}
+\title{Exploration de la Recherche avec Tabous}
 \subtitle{Métaheuristiques}
 \author{Pierre BOURGEY, Paul BOUTET, Florian GIURGIU}
 \institute{Télécom Saint-Etienne}
-\date{\today}
+\date{9 mai 2025}
 
 \begin{document}
 
@@ -38,11 +38,11 @@
 \section{Introduction}
 \subsection{Contexte Historique}
 \begin{frame}{Contexte Historique}
-    \begin{itemize}
+    \begin{enumerate}
         \item Développement des métaheuristiques dans les années 1980
         \item Introduction de la recherche tabou par Fred Glover en 1986
         \item Applications dans divers domaines : optimisation, planification, etc.
-    \end{itemize}
+    \end{enumerate}
 \end{frame}
 
 \subsection{Analogie Biologique}
@@ -80,12 +80,12 @@
 \section{Principe Fondamental}
 \subsection{Définitions}
 \begin{frame}{Définitions}
-    \begin{itemize}
+    \begin{enumerate}
         \item \textbf{Voisinage} : Ensemble de solutions accessibles par un mouvement.
         \item \textbf{Mouvement} : Opération qui modifie une solution pour en obtenir une nouvelle. On peut utiliser un vecteur de déplacement, une permutation etc...
         \item \textbf{Tabou} : Mouvements interdits pour éviter les cycles locaux.
         \item \textbf{Temps en mémoire courte / taille mémoire} : Durée pendant laquelle un mouvement est considéré tabou (souvent fixé proche de 10 itérations).
-    \end{itemize}
+    \end{enumerate}
 \end{frame}
 
 \subsection{Algorithme}
@@ -121,11 +121,10 @@
 \section{Extensions}
 \subsection{Critère d'aspiration}
 \begin{frame}{Critère d'aspiration}
-    \textbf{Définition :} 
-    Le critère d'aspiration permet de contourner les mouvements tabous si une solution est suffisamment prometteuse. Cela évite de rester bloqué dans des minima locaux.
+    \textbf{Définition :} Le critère d'aspiration permet de contourner les mouvements tabous si une solution est suffisamment prometteuse. Cela évite de rester bloqué dans des minima locaux.
 
     \begin{exampleblock}{Exemple :}
-        \begin{itemize}
+        \begin{enumerate}
             \item Considérons des permutations où les mouvements sont des inversions de deux
                   éléments.
             \item Départ : \textbf{[1,2,3,4,5]} (coût : 3).
@@ -138,81 +137,82 @@
             \item Une meilleure solution \textbf{[1,2,4,5,3]} (coût : 2) existe, mais le
                   mouvement \textbf{1 $\leftrightarrow$ 2} est interdit.
             \item On effectue ce mouvement interdit car il améliore le coût global.
-        \end{itemize}
+        \end{enumerate}
     \end{exampleblock}
 \end{frame}
 
 \subsection{Mémoire à long terme}
 \begin{frame}{Mémoire à long terme}
-    \begin{definition}
-        La mémoire à long terme permet de garder une trace des mouvements qui ont été bénéfiques ou nuisibles dans le passé. Cela aide à éviter les mouvements qui ont conduit à mauvaises solutions.
-    \end{definition}
+    \textbf{Définition :} 
+    La mémoire à long terme permet de garder une trace des mouvements qui ont été bénéfiques ou nuisibles dans le passé. Cela aide à éviter les mouvements qui ont conduit à mauvaises solutions.
+    
     \bigskip
 
     \begin{exampleblock}{Exemple :}
-        \begin{itemize}
+        \begin{enumerate}
             \item Considérons un problème d'ordonnancement où certaines tâches sont plus
                   difficiles que d'autres.
             \item Un mouvement qui a conduit à une solution de mauvaise qualité dans le passé
                   sera évité dans le futur.
-        \end{itemize}
+        \end{enumerate}
     \end{exampleblock}
     \bigskip
     \textbf{Avantages :}
-    \begin{itemize}
+    \begin{enumerate}
         \item Amélioration de la qualité des solutions trouvées.
         \item Réduction du temps de calcul en évitant les mouvements nuisibles.
-    \end{itemize}
+    \end{enumerate}
 \end{frame}
 
 \subsection{Pénalisation des mouvements récurrents}
 \begin{frame}{Pénalisation des mouvements récurrents}
-    \begin{definition}
-        La pénalisation des mouvements récurrents consiste à attribuer un coût plus élevé aux mouvements qui ont été effectués plusieurs fois dans le passé. Cela aide à éviter les cycles et à encourager l'exploration de nouvelles solutions.
-    \end{definition}
+    \textbf{Définition :} 
+    La pénalisation des mouvements récurrents consiste à attribuer un coût plus élevé aux mouvements qui ont été effectués plusieurs fois dans le passé. Cela aide à éviter les cycles et à encourager l'exploration de nouvelles solutions.
+
     \bigskip
 
     \begin{exampleblock}{Exemple}
-        \begin{itemize}
+        \begin{enumerate}
             \item Considérons un problème de voyageur de commerce où certaines villes sont
                   visitées plusieurs fois.
             \item Un mouvement qui revient à une ville déjà visitée sera pénalisé.
-        \end{itemize}
+        \end{enumerate}
     \end{exampleblock}
     \bigskip
     \textbf{Avantages :}
-    \begin{itemize}
+    \begin{enumerate}
         \item Encouragement de l'exploration de nouvelles solutions.
         \item Évitement des cycles et des solutions sous-optimales.
-    \end{itemize}
+    \end{enumerate}
 \end{frame}
 
 \subsection{Extension des voisinages}
 \begin{frame}{Extension des voisinages}
-    \begin{definition}
-        L'extension des voisinages consiste à élargir l'ensemble des solutions candidates en considérant des mouvements plus complexes. Cela permet d'explorer de nouvelles régions de l'espace de recherche.
-    \end{definition}
+    \textbf{Définition :} 
+    L'extension des voisinages consiste à élargir l'ensemble des solutions candidates en considérant des mouvements plus complexes. Cela permet d'explorer de nouvelles régions de l'espace de recherche.
+    
     \bigskip
 
     \begin{exampleblock}{Exemple}
-        \begin{itemize}
+        \begin{enumerate}
             \item Considérons un problème d'optimisation où les mouvements sont des permutations
                   de plusieurs éléments.
             \item Un mouvement qui échange plusieurs éléments sera considéré comme un voisinage.
-        \end{itemize}
+        \end{enumerate}
     \end{exampleblock}
     \bigskip
     \textbf{Avantages :}
-    \begin{itemize}
+    \begin{enumerate}
         \item Exploration de nouvelles solutions potentiellement meilleures.
         \item Évitement des minima locaux en diversifiant les mouvements.
-    \end{itemize}
+    \end{enumerate}
 \end{frame}
 
 \subsection{Hybridation avec d'autres méthodes}
 \begin{frame}{Hybridation avec d'autres méthodes}
-    \begin{definition} L'hybridation consiste à combiner la recherche tabou avec d'autres méthodes d'optimisation pour améliorer les performances. Cela permet de tirer parti des forces de chaque méthode.
-    \end{definition}
+    \textbf{Définition :}
+    L'hybridation consiste à combiner la recherche tabou avec d'autres méthodes d'optimisation pour améliorer les performances. Cela permet de tirer parti des forces de chaque méthode.
+
     \bigskip
 
     Pour plus d'informations, voir la référence \cite{ref1}.
@@ -222,11 +222,11 @@
 \section{Avantages - Inconvénients}
 
 \begin{frame}{Avantages}
-    \begin{itemize}
+    \begin{enumerate}
         \item Rapidité d'exécution.
         \item Résultats de qualité acceptable.
         \item Paramétrage simple (peu de paramètres : taille mémoire, itérations max).
-    \end{itemize}
+    \end{enumerate}
 \end{frame}
 
 \begin{frame}{Rapidité}
@@ -235,12 +235,12 @@
             \begin{figure}[ht]
                 \begin{center}
                     \begin{tabular}{cc}
-                        \includegraphics[width=2.5cm]{figures/pnug30Ro.eps}   &
-                        \includegraphics[width=2.5cm]{figures/plipa90aRo.eps}   \\
-                        \includegraphics[width=2.5cm]{figures/psko100aRo.eps} &
-                        \includegraphics[width=2.5cm]{figures/ptho150Ro.eps}    \\
-                        \includegraphics[width=2.5cm]{figures/ptai100aRo.eps} &
-                        \includegraphics[width=2.5cm]{figures/pdre110Ro.eps}
+                        \includegraphics[width=2.2cm]{figures/pnug30Ro.eps}   &
+                        \includegraphics[width=2.2cm]{figures/plipa90aRo.eps}   \\
+                        \includegraphics[width=2.2cm]{figures/psko100aRo.eps} &
+                        \includegraphics[width=2.2cm]{figures/ptho150Ro.eps}    \\
+                        \includegraphics[width=2.2cm]{figures/ptai100aRo.eps} &
+                        \includegraphics[width=2.2cm]{figures/pdre110Ro.eps}
                     \end{tabular}
                 \end{center}
                 \caption{$\bar T$ versus $Q$ for various problem instances for SA (squares) and TS (triangles).  For plots which
@@ -263,10 +263,10 @@
 \end{frame}
 
 \begin{frame}{Inconvénients}
-    \begin{itemize}
+    \begin{enumerate}
         \item Complexité de définition des mouvements et voisinages.
         \item Sensibilité aux paramètres (ex: taille de la mémoire, durée de la recherche).
-    \end{itemize}
+    \end{enumerate}
 
 \end{frame}
 
@@ -282,36 +282,38 @@
             \sum_{i=1}^n \sum_{j=1}^n f_{ij} \cdot d_{p(i)p(j)}
         \]
         où :
-        \begin{itemize}
+        \begin{enumerate}
             \item \( f_{ij} \) : Flux entre l'objet \( i \) et \( j \) (non symétrique)
             \item \( d_{rs} \) : Distance entre l'emplacement \( r \) et \( s \) (symétrique)
             \item \( p(i) \) : Permutation donnant l'emplacement de l'objet \( i \)
-        \end{itemize}
+        \end{enumerate}
     \end{block}
 
     \begin{exampleblock}{Défi algorithmique}
-        \begin{itemize}
+        \begin{enumerate}
             \item NP-difficile : Pas de solution exacte pour \( n > 20 \)
             \item Espace de solutions : \( n! \) permutations possibles
             \item Coût de calcul : \( \mathcal{O}(n^2) \) par évaluation
-        \end{itemize}
+        \end{enumerate}
     \end{exampleblock}
+\end{frame}
 
+\begin{frame}{Problème d'Affectation Quadratique (QAP)}
     \begin{alertblock}{Applications réelles}
         \begin{columns}
             \column{0.45\textwidth}
-            \begin{itemize}
+            \begin{enumerate}
                 \item Planification d'usine
                 \item Placement de composants électroniques
                 \item Optimisation de clavier
-            \end{itemize}
+            \end{enumerate}
 
             \column{0.45\textwidth}
-            \begin{itemize}
+            \begin{enumerate}
                 \item Répartition de fichiers
                 \item Affectation de portes aéroportuaires
                 \item Agencement hospitalier
-            \end{itemize}
+            \end{enumerate}
         \end{columns}
     \end{alertblock}
 \end{frame}
@@ -320,11 +322,11 @@
     \framesubtitle{Cas d'étude avec 5 bâtiments et 5 emplacements}
 
     \begin{block}{Configuration du problème}
-        \begin{itemize}
+        \begin{enumerate}
             \item 5 bâtiments à placer sur 5 sites géographiques
             \item Objectif : Minimiser les déplacements entre bâtiments
             \item Deux matrices clés :
-        \end{itemize}
+        \end{enumerate}
     \end{block}
 
     \begin{columns}[T]
@@ -340,7 +342,9 @@
                 \end{bmatrix}
             \]
             \begin{footnotesize}
-                Distances en kilomètres
+                \begin{center}
+                    Distances en kilomètres
+                \end{center}
             \end{footnotesize}
         \end{exampleblock}
 
@@ -356,7 +360,9 @@
                 \end{bmatrix}
             \]
             \begin{footnotesize}
-                Nombre de déplacements/jour
+                \begin{center}
+                    Nombre de déplacements/jour
+                \end{center}
             \end{footnotesize}
         \end{exampleblock}
     \end{columns}
@@ -368,11 +374,11 @@
     \framesubtitle{Solution de départ}
 
     \begin{block}{Configuration initiale}
-        \begin{itemize}
+        \begin{enumerate}
             \item Permutation initiale : \( P = (2, 4, 1, 5, 3) \)
             \item Coût initial : 72
             \item Matrice de mémoire \( T \) vide
-        \end{itemize}
+        \end{enumerate}
     \end{block}
 
     \begin{exampleblock}{Matrice d'interdiction initiale \( T \)}
@@ -402,10 +408,10 @@
         \end{tabular}%
     }
 
-    \begin{itemize}
+    \begin{enumerate}
         \item 3 mouvements optimaux : \( \Delta = -12 \)
         \item Choix aléatoire : \( (1,3) \)
-    \end{itemize}
+    \end{enumerate}
 
     \begin{columns}
         \column{0.5\textwidth}
@@ -444,10 +450,10 @@
         \end{tabular}%
     }
 
-    \begin{itemize}
+    \begin{enumerate}
         \item Mouvement \( (1,3) \) interdit (\( t_{13} = 10 \))
         \item Meilleur mouvement : \( (1,4) \) (\( \Delta = -8 \))
-    \end{itemize}
+    \end{enumerate}
 
     \begin{columns}
         \column{0.5\textwidth}
@@ -473,7 +479,7 @@
 \end{frame}
 
 % --- Itération 3 ---
-\begin{frame}{Itération 3 }
+\begin{frame}{Itération 3}
     \framesubtitle{Stratégie de diversification}
 
     \resizebox{\columnwidth}{!}{%
@@ -486,10 +492,10 @@
         \end{tabular}%
     }
 
-    \begin{itemize}
+    \begin{enumerate}
         \item Aucun \( \Delta < 0 \) (minimum local)
         \item Choix du moins mauvais : \( (2,3) \) (\( \Delta = +8 \))
-    \end{itemize}
+    \end{enumerate}
 
     \begin{columns}
         \column{0.5\textwidth}
@@ -528,9 +534,9 @@
         \end{tabular}%
     }
 
-    \begin{itemize}
+    \begin{enumerate}
         \item Mouvement \( (2,4) \) choisi (\( \Delta = +8 \))
-    \end{itemize}
+    \end{enumerate}
 
     \begin{columns}
         \column{0.5\textwidth}
@@ -569,10 +575,10 @@
         \end{tabular}%
     }
 
-    \begin{itemize}
+    \begin{enumerate}
         \item 1 mouvement optimal : \( (1,3) \) (\( \Delta = -10 \))
         \item Mouvements \( (1,4) \), \( (2,3) \), \( (2,4) \) interdits
-    \end{itemize}
+    \end{enumerate}
 
     \begin{columns}
         \column{0.5\textwidth}
@@ -593,9 +599,9 @@
                     11 & 0  & 0  & 8 & 0
                 \end{pmatrix}
             \]
-            \begin{itemize}
+            \begin{enumerate}
                 \item Interdiction : \( (4,3) \) et \( (5,1) \) jusqu'à itération 11
-            \end{itemize}
+            \end{enumerate}
         \end{exampleblock}
     \end{columns}
 \end{frame}
