@@ -40,7 +40,7 @@
 \begin{frame}{Contexte Historique}
     \begin{enumerate}
         \item Développement des métaheuristiques dans les années 1980
-        \item Introduction de la recherche taboue par Fred Glover en 1986
+        \item Introduction de la recherche tabou par Fred Glover en 1986
         \item Applications dans divers domaines : optimisation, planification, etc.
     \end{enumerate}
 \end{frame}
@@ -143,9 +143,9 @@
 
 \subsection{Mémoire à long terme}
 \begin{frame}{Mémoire à long terme}
-    \textbf{Définition :} 
+    \textbf{Définition :}
     La mémoire à long terme permet de garder une trace des mouvements qui ont été bénéfiques ou nuisibles dans le passé. Cela aide à éviter les mouvements qui ont conduit à mauvaises solutions.
-    
+
     \bigskip
 
     \begin{exampleblock}{Exemple :}
@@ -166,7 +166,7 @@
 
 \subsection{Pénalisation des mouvements récurrents}
 \begin{frame}{Pénalisation des mouvements récurrents}
-    \textbf{Définition :} 
+    \textbf{Définition :}
     La pénalisation des mouvements récurrents consiste à attribuer un coût plus élevé aux mouvements qui ont été effectués plusieurs fois dans le passé. Cela aide à éviter les cycles et à encourager l'exploration de nouvelles solutions.
 
     \bigskip
@@ -188,9 +188,9 @@
 
 \subsection{Extension des voisinages}
 \begin{frame}{Extension des voisinages}
-    \textbf{Définition :} 
+    \textbf{Définition :}
     L'extension des voisinages consiste à élargir l'ensemble des solutions candidates en considérant des mouvements plus complexes. Cela permet d'explorer de nouvelles régions de l'espace de recherche.
-    
+
     \bigskip
 
     \begin{exampleblock}{Exemple}
@@ -211,7 +211,7 @@
 \subsection{Hybridation avec d'autres méthodes}
 \begin{frame}{Hybridation avec d'autres méthodes}
     \textbf{Définition :}
-    L'hybridation consiste à combiner la recherche taboue avec d'autres méthodes d'optimisation pour améliorer les performances. Cela permet de tirer parti des forces de chaque méthode.
+    L'hybridation consiste à combiner la recherche tabou avec d'autres méthodes d'optimisation pour améliorer les performances. Cela permet de tirer parti des forces de chaque méthode.
 
     \bigskip
 
@@ -345,16 +345,16 @@
         \begin{exampleblock}{Matrice des distances \(D\) (symétrique)}
             \[
                 D = \begin{bmatrix}
-                    0 & 1 & 2 & 3 & 1 \\
-                    1 & 0 & 2 & 1 & 1 \\
-                    2 & 2 & 0 & 1 & 2 \\
-                    3 & 1 & 1 & 0 & 1 \\
-                    1 & 1 & 2 & 1 & 0
+                    0 & 1 & 1 & 2 & 3 \\
+                    1 & 0 & 2 & 1 & 2 \\
+                    1 & 2 & 0 & 1 & 2 \\
+                    2 & 1 & 1 & 0 & 2 \\
+                    3 & 2 & 2 & 2 & 0
                 \end{bmatrix}
             \]
             \begin{footnotesize}
                 \begin{center}
-                    Distances en kilomètres
+                    Distances entre bâtiments
                 \end{center}
             \end{footnotesize}
         \end{exampleblock}
@@ -385,24 +385,50 @@
     \framesubtitle{Solution de départ}
 
     \begin{block}{Configuration initiale}
-        \begin{enumerate}
-            \item Permutation initiale : \( P = (2, 4, 1, 5, 3) \)
+        \begin{itemize}
+            \item Permutation initiale :
+                  \[
+                      \begin{array}{cccccc}
+                          sites : & 1  & 2 & 3 & 4 & 5  \\
+                          P =     & (2 & 4 & 1 & 5 & 3) \\
+                      \end{array}
+                  \]
+
             \item Coût initial : 72
             \item Matrice de mémoire \( T \) vide
-        \end{enumerate}
+        \end{itemize}
     \end{block}
 
     \begin{exampleblock}{Matrice d'interdiction initiale \( T \)}
         \[
-            T = \begin{pmatrix}
-                0 & 0 & 0 & 0 & 0 \\
-                0 & 0 & 0 & 0 & 0 \\
-                0 & 0 & 0 & 0 & 0 \\
-                0 & 0 & 0 & 0 & 0 \\
-                0 & 0 & 0 & 0 & 0
-            \end{pmatrix}
+            \begin{array}{cc|c}
+                
+                \text{sites :} & 
+                \begin{array}{ccccc}
+                    1 & 2 & 3 & 4 & 5
+                \end{array}
+                               & \text{bâtiments} \\[1ex]
+                T =            &
+                \begin{pmatrix}
+                    0 & 0 & 0 & 0 & 0 \\
+                    0 & 0 & 0 & 0 & 0 \\
+                    0 & 0 & 0 & 0 & 0 \\
+                    0 & 0 & 0 & 0 & 0 \\
+                    0 & 0 & 0 & 0 & 0 \\
+                \end{pmatrix}
+                               &
+                \begin{array}{c}
+
+                    1 \\
+                    2 \\
+                    3 \\
+                    4 \\
+                    5 \\
+                \end{array}
+            \end{array}
         \]
     \end{exampleblock}
+
 \end{frame}
 
 % --- Itération 1 ---
@@ -421,19 +447,21 @@
 
     \begin{enumerate}
         \item 3 mouvements optimaux : \( \Delta = -12 \)
-        \item Choix aléatoire : \( (1,3) \)
+        \item Choix aléatoire : \( (1,3) \) on inverse les éléments des sites 1 et 3
     \end{enumerate}
 
     \begin{columns}
         \column{0.5\textwidth}
         \begin{alertblock}{Nouvelle solution}
-            \( P = (1, 4, 2, 5, 3) \) \\
+            \( P = (2, 4, 1, 5, 3) \rightarrow P = (1, 4, 2, 5, 3) \) \\
             Coût : 60 \\
             \( t = 9 \) tiré aléatoirement
         \end{alertblock}
 
         \column{0.5\textwidth}
         \begin{exampleblock}{Mise à jour de \( T \)}
+            $T$ contient les itérations jusqu’auxquelles les mouvements sont interdits. \\
+            \( (1,3) \) est donc interdit jusqu'à l'itération 10. \\
             \[
                 T = \begin{pmatrix}
                     0  & 0 & 10 & 0 & 0 \\
@@ -456,7 +484,7 @@
             \hline
             Mouvement    & (1,2) & (1,3)              & (1,4) & (1,5) & (2,3) & (2,4) & (2,5) & (3,4) & (3,5) & (4,5) \\
             \hline
-            \( \Delta \) & 14    & \textcolor{red}{X} & 10    & 0     & 10    & 8     & 12    & 12    & 6     & -     \\
+            \( \Delta \) & 14    & \textcolor{red}{X} & -8    & 10    & 0     & 10    & 8     & 12    & 12    & 6     \\
             \hline
         \end{tabular}%
     }
@@ -496,9 +524,9 @@
     \resizebox{\columnwidth}{!}{%
         \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
             \hline
-            Mouvement    & (1,2) & (1,3) & (1,4) & (1,5) & (2,3) & (2,4) & (2,5) & (3,4) & (3,5) & (4,5) \\
+            Mouvement    & (1,2) & (1,3) & (1,4)              & (1,5) & (2,3) & (2,4) & (2,5) & (3,4) & (3,5) & (4,5) \\
             \hline
-            \( \Delta \) & 10    & 24    & 10    & 0     & 22    & 20    & 8     & 8     & 14    & -     \\
+            \( \Delta \) & 10    & 24    & \textcolor{red}{X} & 10    & 0     & 22    & 20    & 8     & 8     & 14    \\
             \hline
         \end{tabular}%
     }
@@ -512,7 +540,7 @@
         \column{0.5\textwidth}
         \begin{alertblock}{Nouvelle solution}
             \( P = (5, 2, 4, 1, 3) \) \\
-            Coût : 52 \\
+            Coût : 60 \\
             \( t = 8 \) tiré aléatoirement
         \end{alertblock}
 
@@ -538,9 +566,9 @@
     \resizebox{\columnwidth}{!}{%
         \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
             \hline
-            Mouvement    & (1,2) & (1,3) & (1,4) & (1,5) & (2,3) & (2,4) & (2,5) & (3,4) & (3,5) & (4,5) \\
+            Mouvement    & (1,2) & (1,3) & (1,4)              & (1,5) & (2,3)              & (2,4) & (2,5) & (3,4) & (3,5) & (4,5) \\
             \hline
-            \( \Delta \) & 24    & 10    & 10    & 8     & 8     & 22    & 20    & 14    & -     & -     \\
+            \( \Delta \) & 24    & 10    & \textcolor{red}{X} & 10    & \textcolor{red}{X} & 8     & 8     & 22    & 20    & 14    \\
             \hline
         \end{tabular}%
     }
@@ -553,7 +581,7 @@
         \column{0.5\textwidth}
         \begin{alertblock}{Nouvelle solution}
             \( P = (5, 1, 4, 2, 3) \) \\
-            Coût : 60 \\
+            Coût : 68 \\
             \( t = 5 \) tiré aléatoirement
         \end{alertblock}
 
@@ -579,9 +607,9 @@
     \resizebox{\columnwidth}{!}{%
         \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
             \hline
-            Mouvement    & (1,2) & (1,3)        & (1,4)               & (1,5) & (2,3)               & (2,4)               & (2,5) & (3,4) & (3,5) & (4,5) \\
+            Mouvement    & (1,2) & (1,3)        & (1,4)              & (1,5) & (2,3)              & (2,4)              & (2,5) & (3,4) & (3,5) & (4,5) \\
             \hline
-            \( \Delta \) & 12    & \textbf{-10} & \textcolor{gray}{X} & 10    & \textcolor{gray}{X} & \textcolor{gray}{X} & 4     & 14    & 20    & 10    \\
+            \( \Delta \) & 12    & \textbf{-10} & \textcolor{red}{X} & 10    & \textcolor{red}{X} & \textcolor{red}{X} & 4     & 14    & 20    & 10    \\
             \hline
         \end{tabular}%
     }
@@ -595,7 +623,7 @@
         \column{0.5\textwidth}
         \begin{alertblock}{Nouvelle solution}
             \( P = (4, 1, 5, 2, 3) \) \\
-            Coût : 50 \\
+            Coût : 58 \\
             \( t = 6 \) tiré aléatoirement
         \end{alertblock}
 
